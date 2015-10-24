@@ -12,7 +12,7 @@
 
 using namespace std;
 
-TEST(parser, parseFilterMatchesFilter)
+TEST(BloomFilter, isBitSetSetBit)
 {
   BloomFilter b(10, 3);
 
@@ -35,4 +35,13 @@ TEST(parser, parseFilterMatchesFilter)
   b.setBit(9);
   CHECK(b.isBitSet(9))
   CHECK(!b.isBitSet(1));
+}
+
+// Generates a simple hash function for the specified prime
+TEST(BloomFilter, SimpleHashFn)
+{
+  HashFn H(2);
+  int hash = H("hi", 2);
+
+  CHECK(hash == ((int)'h') * pow(2, 1) + ((int)'i') * pow(2, 0));
 }
