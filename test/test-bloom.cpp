@@ -45,3 +45,30 @@ TEST(BloomFilter, SimpleHashFn)
 
   CHECK(hash == ((int)'h') * pow(2, 1) + ((int)'i') * pow(2, 0));
 }
+
+// Detects when elements are in the set and not in the set
+TEST(BloomFilter, Basic)
+{
+   BloomFilter b;
+   b.add("Brian");
+   b.add("Ronald");
+   b.add("Bondy");
+   CHECK(b.exists("Brian"));
+   CHECK(!b.exists("Brian2"));
+   CHECK(!b.exists("Bria"));
+
+   CHECK(b.exists("Ronald"));
+   CHECK(!b.exists("Ronald2"));
+   CHECK(!b.exists("onald2"));
+
+   CHECK(b.exists("Bondy"));
+   CHECK(!b.exists("BrianRonaldBondy"));
+   CHECK(!b.exists("RonaldBondy"));
+}
+
+void genRandomBuffer(char *s, const int len) {
+  for (int i = 0; i < len; ++i) {
+    s[i] = alphanum[rand() % 256];
+  }
+  s[len] = 0;
+}
