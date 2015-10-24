@@ -9,12 +9,12 @@ public:
     this->p = p;
   }
 
-  int operator()(const char *input, int len, int lastCharCode, int lastHash) {
+  virtual int operator()(const char *input, int len, int lastCharCode, int lastHash) {
     // See the abracadabra example: https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm
     return (lastHash - lastCharCode * pow(p, len - 1)) * p + input[len - 1];
   }
 
-  int operator()(const char *input, int len) {
+  virtual int operator()(const char *input, int len) {
     int total = 0;
     for (int i = 0; i < len; i++) {
       total += input[i] * pow(p, len - i - 1);
