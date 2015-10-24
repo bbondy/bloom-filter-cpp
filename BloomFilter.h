@@ -1,34 +1,11 @@
+#pragma once
+
 #include <math.h>
-
-// Functor for a hashing function
-// Implements a Rabin fingerprint hash function
-class HashFn {
-public:
-  // Initialize a HashFn with the prime p which is used as the base of the Rabin fingerprint algorithm
-  HashFn(int p) {
-    this->p = p;
-  }
-
-  int operator()(const char *input, int len, int lastCharCode, int lastHash) {
-    // See the abracadabra example: https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm
-    return (lastHash - lastCharCode * pow(p, len - 1)) * p + input[len - 1];
-  }
-
-  int operator()(const char *input, int len) {
-    int total = 0;
-    for (int i = 0; i < len; i++) {
-      total += input[i] * pow(p, len - i - 1);
-    }
-    return total;
-  }
-
-private:
-  int p;
-};
+#include "hashFn.h"
 
 /**
+ * Implements a Bloom Filter using Rabin Karp for char* buffer lookups
  */
-
 class BloomFilter {
 public:
     BloomFilter(unsigned int bitsPerElement = 10, unsigned int estimatedNumElements = 50000, HashFn hashFns[] = nullptr);
