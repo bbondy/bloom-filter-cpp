@@ -126,3 +126,15 @@ TEST(BloomFilter, substringExists)
   CHECK(b.substringExists("wow ok hello!!!!", 5));
   CHECK(!b.substringExists("he!lloworl!d", 5));
 }
+
+// Can return false positives for a saturated set
+TEST(BloomFilter, falsePositives)
+{
+   BloomFilter b(2, 2);
+   b.add("fdada");
+   b.add("fdada31");
+   b.add("fdada1111");
+   b.add("fdada11311");
+   b.add("fdada13131");
+   CHECK(b.exists("test"));
+}
