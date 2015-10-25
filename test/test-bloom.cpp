@@ -153,3 +153,15 @@ TEST(BloomFilter, falsePositives)
      CHECK(b.exists(sz));
    }
  }
+
+ // Works with some live examples
+ TEST(BloomFilter, liveExamples)
+ {
+   BloomFilter b;
+   b.add("googlesy");
+   const char *url1 = "http://tpc.googlesyndication.com/safeframe/1-0-2/html/container.html#xpc=sf-gdn-exp-2&p=http%3A//slashdot.org";
+   const char *url2 = "https://tpc.googlesyndication.com/pagead/gadgets/suggestion_autolayout_V2/suggestion_autolayout_V2.html#t=15174732506449260991&p=http%3A%2F%2Ftpc.googlesyndication.com";
+   CHECK(b.substringExists("googlesy", 8));
+   CHECK(b.substringExists(url1, 8));
+   CHECK(b.substringExists(url2, 8));
+ }
