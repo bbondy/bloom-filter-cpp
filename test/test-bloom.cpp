@@ -138,3 +138,18 @@ TEST(BloomFilter, falsePositives)
    b.add("fdada13131");
    CHECK(b.exists("test"));
 }
+
+ // It cannot return false negatives
+ TEST(BloomFilter, noFalseNegatives)
+ {
+   BloomFilter b;
+   char sz[64];
+   for (int i = 0; i < 100000; i++) {
+     sprintf(sz, "test-%i", i);
+     b.add(sz);
+   }
+   for (int i = 0; i < 100000; i++) {
+     sprintf(sz, "test-%i", i);
+     CHECK(b.exists(sz));
+   }
+ }
