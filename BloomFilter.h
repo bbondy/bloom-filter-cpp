@@ -32,10 +32,33 @@ public:
     bool exists(const char *input, int len);
     bool exists(const char *sz);
 
+    /**
+     * Checks if any substring of length substringLength probably exists or definitely doesn't
+     * If false is returned then no substring of the specified string of the specified length is in the bloom filter
+     * @param data The substring or char array to check substrings on.
+     */
+    bool substringExists(const char *data, int dataLen, int substringLength);
+    bool substringExists(const char *sz, int substringLength);
+
+
 private:
   HashFn *hashFns;
+  unsigned int *lastHashes;
   int numHashFns;
   unsigned int byteBufferSize;
   unsigned int bitBufferSize;
   char *buffer;
+
+  /**
+   * Obtains the hashes for the specified charCodes
+   * See "Rabin fingerprint" in https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm for more information.
+   *
+   * @param charCodes An array of the char codes to use for the hash
+   * @param lastHashes Input and output for the last hash value
+   * function for a faster computation.  Must be called with lastCharCode but can be nullptr otherwise.
+   * @param newHashses fills in the corresponding new hashes, can be the same as lastHashes
+   * @param lastCharCode if specified, it will pass the last char code
+   *  to the hashing function for a faster computation. Must be called with lastHashes.
+   */
+  void getHashesForCharCodes(const char *input, int inputLen, unsigned int *lastHashes, unsigned int *newHashes, unsigned char lastCharCode);
 };

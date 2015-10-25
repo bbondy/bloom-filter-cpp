@@ -111,4 +111,18 @@ TEST(BloomFilter, BasicLongStrings)
    CHECK(b.exists(id2, bufSize));
    CHECK(!b.exists("hello"));
    CHECK(!b.exists(id3, bufSize));
- }
+}
+
+// supports substringExists
+TEST(BloomFilter, substringExists)
+{
+  BloomFilter b;
+  b.add("abc");
+  b.add("hello");
+  b.add("world");
+  CHECK(b.substringExists("hello", 5));
+  // Only substrings of length 5 should exist in the bloom filter
+  CHECK(!b.substringExists("ell", 3));
+  CHECK(b.substringExists("wow ok hello!!!!", 5));
+  CHECK(!b.substringExists("he!lloworl!d", 5));
+}

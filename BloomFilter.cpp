@@ -2,7 +2,7 @@
 #include "BloomFilter.h"
 #include <string.h>
 
-HashFn defaultHashFns[3] = {HashFn(11), HashFn(17), HashFn(23)};
+HashFn defaultHashFns[3] = {HashFn(2), HashFn(3), HashFn(5)};
 
 using namespace std;
 
@@ -10,6 +10,7 @@ BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumE
   hashFns(nullptr), numHashFns(0), byteBufferSize(0), buffer(nullptr) {
   this->hashFns = hashFns;
   this->numHashFns = numHashFns;
+  lastHashes = new unsigned int[numHashFns];
   bitBufferSize = bitsPerElement * estimatedNumElements;
   byteBufferSize = bitsPerElement * estimatedNumElements / 8 + 1;
   buffer = new char[byteBufferSize];
@@ -19,6 +20,9 @@ BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumE
 BloomFilter::~BloomFilter() {
   if (buffer) {
     delete[] buffer;
+  }
+  if (lastHashes) {
+    delete[] lastHashes;
   }
 }
 
@@ -61,4 +65,34 @@ bool BloomFilter::exists(const char *input, int len) {
 
 bool BloomFilter::exists(const char *sz) {
   return exists(sz, strlen(sz));
+}
+
+void BloomFilter::getHashesForCharCodes(const char *input, int inputLen, unsigned int *lastHashes, unsigned int *newHashes, unsigned char lastCharCode) {
+  for (int i = 0; i < numHashFns; i++) {
+    if (lastHashes) {
+      *(newHashes + i) = hashFns[i](input, inputLen, lastCharCode, *(lastHashes+i));
+    } else {
+      *(newHashes + i) = hashFns[i](input, inputLen);
+    }
+  }
+}
+
+bool BloomFilter::substringExists(const char *data, int dataLen, int substringLength) {
+  unsigned char lastCharCode = 0;
+  for (int i = 0; i < dataLen - substringLength + 1; i++) {
+    getHashesForCharCodes(data + i, substringLength, i == 0 ? nullptr : lastHashes, lastHashes, lastCharCode);
+    bool allSet = true;
+    for (int j = 0; j < numHashFns; j++) {
+      allSet = allSet && isBitSet(lastHashes[j] % bitBufferSize);
+    }
+    if (allSet) {
+      return true;
+    }
+    lastCharCode = data[i];
+  }
+  return false;
+}
+
+bool BloomFilter::substringExists(const char *data, int substringLength) {
+  return substringExists(data, strlen(data), substringLength);
 }

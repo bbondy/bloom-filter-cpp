@@ -9,7 +9,7 @@ public:
     this->p = p;
   }
 
-  virtual int operator()(const char *input, int len, int lastCharCode, int lastHash) {
+  virtual int operator()(const char *input, int len, unsigned char lastCharCode, unsigned int lastHash) {
     // See the abracadabra example: https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm
     return (lastHash - lastCharCode * pow(p, len - 1)) * p + input[len - 1];
   }
