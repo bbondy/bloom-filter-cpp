@@ -131,11 +131,11 @@ TEST(BloomFilter, substringExists)
 TEST(BloomFilter, falsePositives)
 {
    BloomFilter b(2, 2);
-   b.add("fdada");
-   b.add("fdada31");
-   b.add("fdada1111");
-   b.add("fdada11311");
-   b.add("fdada13131");
+   char sz[64];
+   for (int i = 0; i < 100; i++) {
+     sprintf(sz, "test-%i", i);
+     b.add(sz);
+   }
    CHECK(b.exists("test"));
 }
 

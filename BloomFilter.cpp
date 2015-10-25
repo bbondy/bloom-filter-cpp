@@ -11,8 +11,8 @@ BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumE
   this->hashFns = hashFns;
   this->numHashFns = numHashFns;
   lastHashes = new unsigned int[numHashFns];
-  bitBufferSize = bitsPerElement * estimatedNumElements;
   byteBufferSize = bitsPerElement * estimatedNumElements / 8 + 1;
+  bitBufferSize = byteBufferSize * 8;
   buffer = new char[byteBufferSize];
   memset(buffer, 0, byteBufferSize);
 }
