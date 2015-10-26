@@ -1,8 +1,12 @@
 .PHONY: test
 .PHONY: sample
+.PHONY: static
 
-sample:
-	 node-gyp configure && node-gyp build && ./build/Release/sample
+build:
+	 node-gyp configure && node-gyp build
+
+build-debug:
+	 node-gyp configure -debug && node-gyp build
 
 test:
 	 node-gyp configure -debug && node-gyp build && ./build/Debug/test
