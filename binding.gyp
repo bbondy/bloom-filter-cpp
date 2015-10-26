@@ -58,8 +58,8 @@
     ],
     "include_dirs": [
       ".",
-      "<!(node -e \"require('cppunitlite')\")",
-      "<!(node -e \"require('nan')\")"
+      './node_modules/cppunitlite',
+      './node_modules/nan',
     ],
     "dependencies": [
       "node_modules/cppunitlite/binding.gyp:CppUnitLite",

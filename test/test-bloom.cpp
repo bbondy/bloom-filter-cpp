@@ -1,5 +1,5 @@
 #include "CppUnitLite/TestHarness.h"
-#include "CppUnitLite/test.h"
+#include "CppUnitLite/Test.h"
 #include "BloomFilter.h"
 #include <fstream>
 #include <sstream>

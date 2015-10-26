@@ -12,8 +12,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "npm install nan && npm install cppunitlite && node-gyp rebuild"
+    "test": "make test",
+    "preinstall": "npm install nan && npm install cppunitlite",
+    "install": "node-gyp rebuild"
   },
   "repository": {
     "type": "git",
