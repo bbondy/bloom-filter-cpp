@@ -1,0 +1,45 @@
+# BloomFilter.cpp
+Bloom filter written in C++ for strings. Tests whether an element belongs to a set. False positive matches are possible, false negatives are not. Also implements Rabin–Karp algorithm with Rabin fingerprint hashes for multiple substring searches.
+
+## Installation
+
+```
+npm install bloom-filter-cpp
+```
+
+## Usage
+
+```c++
+#include "BloomFilter.h"
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char**argv) {
+  BloomFilter b;
+  b.add("Brian");
+  b.add("Ronald");
+  b.add("Bondy");
+
+  // Prints true
+  cout << (b.exists("Brian") ? "true" : "false") << endl;
+
+  // Prints false
+  cout << (b.exists("Brian Ronald") ? "true" : "false") << endl;
+
+  // Create a new BloomerFilter form a previous serialization
+  BloomFilter b2(b.getBuffer(), b.getByteBufferSize());
+
+  // Prints the same as above
+  cout << (b2.exists("Brian") ? "true" : "false") << endl;
+  cout << (b2.exists("Brian Ronald") ? "true" : "false") << endl;
+
+  // And you can check if any substring of a passed string exists
+  // Prints true
+  cout << (b.substringExists("Hello my name is Brian", 5) ? "true" : "false") << endl;
+  // Prints false
+  cout << (b.substringExists("Hello my name is Bri", 3) ? "true" : "false") << endl;
+
+  return 0;
+}
+```
