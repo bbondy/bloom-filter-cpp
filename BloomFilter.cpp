@@ -7,7 +7,7 @@ HashFn defaultHashFns[3] = {HashFn(2), HashFn(3), HashFn(5)};
 using namespace std;
 
 BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumElements, HashFn *hashFns, int numHashFns) :
-  hashFns(nullptr), numHashFns(0), byteBufferSize(0), buffer(nullptr) {
+    hashFns(nullptr), numHashFns(0), byteBufferSize(0), buffer(nullptr) {
   this->hashFns = hashFns;
   this->numHashFns = numHashFns;
   lastHashes = new unsigned int[numHashFns];
@@ -15,6 +15,18 @@ BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumE
   bitBufferSize = byteBufferSize * 8;
   buffer = new char[byteBufferSize];
   memset(buffer, 0, byteBufferSize);
+}
+
+// Constructs a BloomFilter by copying the specified buffer and number of bytes
+BloomFilter::BloomFilter(const char *buffer, int byteBufferSize, HashFn *hashFns, int numHashFns) :
+    hashFns(nullptr), numHashFns(0), byteBufferSize(0), buffer(nullptr) {
+  this->hashFns = hashFns;
+  this->numHashFns = numHashFns;
+  lastHashes = new unsigned int[numHashFns];
+  this->byteBufferSize = byteBufferSize;
+  bitBufferSize = byteBufferSize * 8;
+  this->buffer = new char[byteBufferSize];
+  memcpy(this->buffer, buffer, byteBufferSize);
 }
 
 BloomFilter::~BloomFilter() {

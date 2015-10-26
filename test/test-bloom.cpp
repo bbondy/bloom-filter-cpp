@@ -165,3 +165,25 @@ TEST(BloomFilter, falsePositives)
    CHECK(b.substringExists(url1, 8));
    CHECK(b.substringExists(url2, 8));
  }
+
+ // Works by transfering a buffer
+ TEST(BloomFilter, transferingBuffer)
+ {
+   BloomFilter b;
+   b.add("Brian");
+   b.add("Ronald");
+   b.add("Bondy");
+
+   BloomFilter b2(b.getBuffer(), b.getByteBufferSize());
+   CHECK(b2.exists("Brian"));
+   CHECK(!b2.exists("Brian2"));
+   CHECK(!b2.exists("Bria"));
+
+   CHECK(b2.exists("Ronald"));
+   CHECK(!b2.exists("Ronald2"));
+   CHECK(!b2.exists("onald2"));
+
+   CHECK(b2.exists("Bondy"));
+   CHECK(!b2.exists("BrianRonaldBondy"));
+   CHECK(!b2.exists("RonaldBondy"));
+ }

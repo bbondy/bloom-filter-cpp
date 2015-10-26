@@ -10,6 +10,7 @@ extern HashFn defaultHashFns[3];
 class BloomFilter {
 public:
     BloomFilter(unsigned int bitsPerElement = 10, unsigned int estimatedNumElements = 50000, HashFn hashFns[] = defaultHashFns, int numHashFns = sizeof(defaultHashFns)/sizeof(defaultHashFns[0]));
+    BloomFilter(const char *buffer, int byteBufferSize, HashFn hashFns[] = defaultHashFns, int numHashFns = sizeof(defaultHashFns)/sizeof(defaultHashFns[0]));
     ~BloomFilter();
     // Used for debuggging
     void print();
@@ -40,6 +41,13 @@ public:
     bool substringExists(const char *data, int dataLen, int substringLength);
     bool substringExists(const char *sz, int substringLength);
 
+    const char * getBuffer() {
+      return buffer;
+    }
+
+    int getByteBufferSize() {
+      return byteBufferSize;
+    }
 
 private:
   HashFn *hashFns;
