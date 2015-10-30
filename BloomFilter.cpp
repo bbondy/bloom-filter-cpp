@@ -2,7 +2,7 @@
 #include "BloomFilter.h"
 #include <string.h>
 
-HashFn defaultHashFns[3] = {HashFn(17), HashFn(31), HashFn(53)};
+HashFn defaultHashFns[5] = {HashFn(13), HashFn(17), HashFn(31), HashFn(41), HashFn(53)};
 
 using namespace std;
 
