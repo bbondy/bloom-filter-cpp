@@ -1,7 +1,9 @@
 #pragma once
 
 #include <math.h>
+#include <stdint.h>
 #include "hashFn.h"
+#include "base.h"
 
 extern HashFn defaultHashFns[3];
 /**
@@ -51,7 +53,7 @@ public:
 
 private:
   HashFn *hashFns;
-  unsigned int *lastHashes;
+  uint64_t *lastHashes;
   int numHashFns;
   unsigned int byteBufferSize;
   unsigned int bitBufferSize;
@@ -68,5 +70,5 @@ private:
    * @param lastCharCode if specified, it will pass the last char code
    *  to the hashing function for a faster computation. Must be called with lastHashes.
    */
-  void getHashesForCharCodes(const char *input, int inputLen, unsigned int *lastHashes, unsigned int *newHashes, unsigned char lastCharCode);
+  void getHashesForCharCodes(const char *input, int inputLen, uint64_t *lastHashes, uint64_t *newHashes, unsigned char lastCharCode);
 };

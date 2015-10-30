@@ -41,7 +41,7 @@ TEST(BloomFilter, isBitSetSetBit)
 TEST(BloomFilter, SimpleHashFn)
 {
   HashFn H(2);
-  int hash = H("hi", 2);
+  uint64_t hash = H("hi", 2);
 
   CHECK(hash == ((int)'h') * pow(2, 1) + ((int)'i') * pow(2, 0));
 }
@@ -79,8 +79,8 @@ public:
     this->base = base;
   }
 
-  virtual int operator()(const char *input, int len) {
-    int total = base;
+  virtual uint64_t operator()(const char *input, int len) {
+    uint64_t total = base;
     for (int i = 0; i < len; i++) {
       total += input[i];
     }
