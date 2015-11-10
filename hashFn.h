@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __HASH_FN_H__
+#define __HASH_FN_H__
 
 // Functor for a hashing function
 // Implements a Rabin fingerprint hash function
@@ -25,3 +26,5 @@ public:
 private:
   int p;
 };
+
+#endif
