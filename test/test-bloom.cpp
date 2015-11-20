@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <cerrno>
+#include "stdlib.h"
 #include "util.h"
 #include "string.h"
 #include <iostream>
