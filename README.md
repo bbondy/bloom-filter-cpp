@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/bbondy/bloom-filter-cpp.svg?branch=master)](https://travis-ci.org/bbondy/bloom-filter-cpp)
 
 # BloomFilter.cpp
-Bloom filter written in C++ for strings. Tests whether an element belongs to a set. False positive matches are possible, false negatives are not. Also implements Rabin–Karp algorithm with Rabin fingerprint hashes for multiple substring searches.
+Bloom filter written in C++. Tests whether an element belongs to a set. False positive matches are possible, false negatives are not. Also implements Rabin–Karp algorithm with Rabin fingerprint hashes for multiple substring searches.
 
 This is a port of a [similar lib](https://github.com/bbondy/bloom-filter-js) I prototyped in JS.
 
