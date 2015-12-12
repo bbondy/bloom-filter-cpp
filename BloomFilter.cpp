@@ -64,7 +64,7 @@ void BloomFilter::add(const char *input, int len) {
 }
 
 void BloomFilter::add(const char *sz) {
-  add(sz, strlen(sz));
+  add(sz, static_cast<int>(strlen(sz)));
 }
 
 bool BloomFilter::exists(const char *input, int len) {
@@ -76,7 +76,7 @@ bool BloomFilter::exists(const char *input, int len) {
 }
 
 bool BloomFilter::exists(const char *sz) {
-  return exists(sz, strlen(sz));
+  return exists(sz, static_cast<int>(strlen(sz)));
 }
 
 void BloomFilter::getHashesForCharCodes(const char *input, int inputLen, uint64_t *lastHashes, uint64_t *newHashes, unsigned char lastCharCode) {
@@ -106,5 +106,5 @@ bool BloomFilter::substringExists(const char *data, int dataLen, int substringLe
 }
 
 bool BloomFilter::substringExists(const char *data, int substringLength) {
-  return substringExists(data, strlen(data), substringLength);
+  return substringExists(data, static_cast<int>(strlen(data)), substringLength);
 }
