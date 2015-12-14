@@ -5,10 +5,10 @@ Bloom filter written in C++. Tests whether an element belongs to a set. False po
 
 This is a port of a [similar lib](https://github.com/bbondy/bloom-filter-js) I prototyped in JS.
 
-## Installation
+## To include bloom-filter-cpp in your project:
 
 ```
-npm install bloom-filter-cpp
+npm install --save bloom-filter-cpp
 ```
 
 ## Usage
@@ -46,6 +46,14 @@ int main(int argc, char**argv) {
 
   return 0;
 }
+```
+
+
+## Developing bloom-filter-cpp
+
+````
+git clone bloom-filter-cpp
+npm install
 ```
 
 ## Build everything in release
