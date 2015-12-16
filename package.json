@@ -10,9 +10,12 @@
     "cppunitlite": "^1.0.0",
     "nan": "^2.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "pre-commit": "^1.1.2"
+  },
   "scripts": {
     "test": "make test",
+    "lint": "./scripts/cpplint.py",
     "preinstall": "npm install nan && npm install cppunitlite",
     "install": "node-gyp rebuild"
   },
@@ -26,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/bbondy/BloomFilter.cpp/issues"
   },
-  "homepage": "https://github.com/bbondy/BloomFilter.cpp#readme"
+  "homepage": "https://github.com/bbondy/BloomFilter.cpp#readme",
+  "pre-commit": [
+    "lint"
+  ]
 }
