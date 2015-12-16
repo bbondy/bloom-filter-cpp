@@ -1,12 +1,17 @@
+/* Copyright (c) 2015 Brian R. Bondy. Distributed under the MPL2 license.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#include <string.h>
 #include <iostream>
 #include "BloomFilter.h"
-#include <string.h>
 
-HashFn defaultHashFns[5] = {HashFn(13), HashFn(17), HashFn(31), HashFn(41), HashFn(53)};
+HashFn defaultHashFns[5] = {HashFn(13), HashFn(17), HashFn(31), HashFn(41),
+  HashFn(53)};
 
-using namespace std;
-
-BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumElements, HashFn *hashFns, int numHashFns) :
+BloomFilter::BloomFilter(unsigned int bitsPerElement,
+    unsigned int estimatedNumElements, HashFn *hashFns, int numHashFns) :
     hashFns(nullptr), numHashFns(0), byteBufferSize(0), buffer(nullptr) {
   this->hashFns = hashFns;
   this->numHashFns = numHashFns;
@@ -18,7 +23,8 @@ BloomFilter::BloomFilter(unsigned int bitsPerElement, unsigned int estimatedNumE
 }
 
 // Constructs a BloomFilter by copying the specified buffer and number of bytes
-BloomFilter::BloomFilter(const char *buffer, int byteBufferSize, HashFn *hashFns, int numHashFns) :
+BloomFilter::BloomFilter(const char *buffer, int byteBufferSize,
+    HashFn *hashFns, int numHashFns) :
     hashFns(nullptr), numHashFns(0), byteBufferSize(0), buffer(nullptr) {
   this->hashFns = hashFns;
   this->numHashFns = numHashFns;
@@ -42,10 +48,10 @@ void BloomFilter::print() {
   for (unsigned int i = 0; i < byteBufferSize; i++) {
     int mask = 0x01;
     for (int j = 0; j < 8; j++) {
-        cout << ((buffer[i] & mask) ? "1" : "0");
+      std::cout << ((buffer[i] & mask) ? "1" : "0");
         mask <<= 1;
     }
-    cout << " ";
+    std::cout << " ";
   }
 }
 
@@ -79,20 +85,24 @@ bool BloomFilter::exists(const char *sz) {
   return exists(sz, static_cast<int>(strlen(sz)));
 }
 
-void BloomFilter::getHashesForCharCodes(const char *input, int inputLen, uint64_t *lastHashes, uint64_t *newHashes, unsigned char lastCharCode) {
+void BloomFilter::getHashesForCharCodes(const char *input, int inputLen,
+    uint64_t *lastHashes, uint64_t *newHashes, unsigned char lastCharCode) {
   for (int i = 0; i < numHashFns; i++) {
     if (lastHashes) {
-      *(newHashes + i) = hashFns[i](input, inputLen, lastCharCode, *(lastHashes+i));
+      *(newHashes + i) = hashFns[i](input, inputLen,
+          lastCharCode, *(lastHashes+i));
     } else {
       *(newHashes + i) = hashFns[i](input, inputLen);
     }
   }
 }
 
-bool BloomFilter::substringExists(const char *data, int dataLen, int substringLength) {
+bool BloomFilter::substringExists(const char *data, int dataLen,
+    int substringLength) {
   unsigned char lastCharCode = 0;
   for (int i = 0; i < dataLen - substringLength + 1; i++) {
-    getHashesForCharCodes(data + i, substringLength, i == 0 ? nullptr : lastHashes, lastHashes, lastCharCode);
+    getHashesForCharCodes(data + i, substringLength, i == 0
+        ? nullptr : lastHashes, lastHashes, lastCharCode);
     bool allSet = true;
     for (int j = 0; j < numHashFns; j++) {
       allSet = allSet && isBitSet(lastHashes[j] % bitBufferSize);
