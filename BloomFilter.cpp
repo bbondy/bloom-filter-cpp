@@ -4,7 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include <string.h>
-#include <iostream>
 #include "BloomFilter.h"
 
 HashFn defaultHashFns[5] = {HashFn(13), HashFn(17), HashFn(31), HashFn(41),
@@ -41,17 +40,6 @@ BloomFilter::~BloomFilter() {
   }
   if (lastHashes) {
     delete[] lastHashes;
-  }
-}
-
-void BloomFilter::print() {
-  for (unsigned int i = 0; i < byteBufferSize; i++) {
-    int mask = 0x01;
-    for (int j = 0; j < 8; j++) {
-      std::cout << ((buffer[i] & mask) ? "1" : "0");
-        mask <<= 1;
-    }
-    std::cout << " ";
   }
 }
 

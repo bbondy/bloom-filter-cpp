@@ -25,8 +25,6 @@ class BloomFilter {
         HashFn hashFns[] = defaultHashFns,
         int numHashFns = sizeof(defaultHashFns)/sizeof(defaultHashFns[0]));
     ~BloomFilter();
-    // Used for debuggging
-    void print();
     void setBit(unsigned int bitLocation);
     bool isBitSet(unsigned int bitLocation);
     // Adds the specified buffer to the bloom filter
