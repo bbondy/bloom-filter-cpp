@@ -72,7 +72,7 @@ void genRandomBuffer(char *s, const int len) {
   for (int i = 0; i < len; ++i) {
     s[i] = rand() % 256;  // NOLINT
   }
-  s[len] = 0;
+  s[len - 1] = 0;
 }
 
 class BasicHashFn : public HashFn {
@@ -95,23 +95,23 @@ class BasicHashFn : public HashFn {
 
 // Can handle long strings
 TEST(BloomFilter, BasicLongStrings) {
-  char id1[20000];
-  char id2[20000];
-  char id3[20000];
-  const int bufSize = sizeof(id1);
-  genRandomBuffer(id1, bufSize);
-  genRandomBuffer(id2, bufSize);
-  genRandomBuffer(id3, bufSize);
+  const int kBufSize = 20000;
+  char id1[kBufSize];
+  char id2[kBufSize];
+  char id3[kBufSize];
+  genRandomBuffer(id1, kBufSize);
+  genRandomBuffer(id2, kBufSize);
+  genRandomBuffer(id3, kBufSize);
 
   BasicHashFn hashFns[2] = {BasicHashFn(0), BasicHashFn(1023)};
   BloomFilter b(10, 5000, hashFns, sizeof(hashFns)/sizeof(hashFns[0]));
 
-  b.add(id1, bufSize);
-  b.add(id2, bufSize);
-  CHECK(b.exists(id1, bufSize));
-  CHECK(b.exists(id2, bufSize));
+  b.add(id1, kBufSize);
+  b.add(id2, kBufSize);
+  CHECK(b.exists(id1, kBufSize));
+  CHECK(b.exists(id2, kBufSize));
   CHECK(!b.exists("hello"));
-  CHECK(!b.exists(id3, bufSize));
+  CHECK(!b.exists(id3, kBufSize));
 }
 
 // supports substringExists
