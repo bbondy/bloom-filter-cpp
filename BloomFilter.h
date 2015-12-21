@@ -25,7 +25,9 @@ class BloomFilter {
         HashFn hashFns[] = defaultHashFns,
         int numHashFns = sizeof(defaultHashFns)/sizeof(defaultHashFns[0]));
     ~BloomFilter();
+    // Sets the specified bit in the buffer
     void setBit(unsigned int bitLocation);
+    // Checks if the specified bit is set in the buffer
     bool isBitSet(unsigned int bitLocation);
     // Adds the specified buffer to the bloom filter
     void add(const char *input, int len);
@@ -34,7 +36,7 @@ class BloomFilter {
     /**
      * Checks whether an element probably exists in the set, or definitely
      * doesn't.
-     * @param str Either a string to check for existance or an array of the
+     * @param sz Either a string to check for existance or an array of the
      *   string's char codes. The main reason why you'd want to pass in a char
      *   code array is because passing a string will use JS directly to get
      *   the char codes which is very inneficient compared to calling into C++
@@ -56,10 +58,16 @@ class BloomFilter {
     bool substringExists(const char *data, int dataLen, int substringLength);
     bool substringExists(const char *sz, int substringLength);
 
+    /**
+     * Obtains the buffer used as the bloom filter data
+     */
     const char * getBuffer() {
       return buffer;
     }
 
+    /**
+     * Obtains the Bloom Filter's buffer size in bytes
+     */
     int getByteBufferSize() {
       return byteBufferSize;
     }
