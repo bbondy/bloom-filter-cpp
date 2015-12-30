@@ -1,16 +1,16 @@
 {
   "name": "bloom-filter-cpp",
   "main": "./build/Release/bloom-filter-cpp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "cppunitlite": "^1.0.0",
-    "nan": "^2.1.0"
   },
   "devDependencies": {
+    "cppunitlite": "^1.0.0",
+    "nan": "^2.1.0",
     "node-gyp": "^3.2.1",
     "pre-commit": "^1.1.2"
   },
