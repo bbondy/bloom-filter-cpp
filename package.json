@@ -1,14 +1,16 @@
 {
   "name": "bloom-filter-cpp",
   "main": "./build/Release/bloom-filter-cpp",
-  "version": "1.0.2",
+  "version": "1.0.12",
   "description": "",
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "node-gyp": "^3.2.1"
+  },
   "devDependencies": {
-    "cppunitlite-2": "^1.0.0",
+    "cppunitlite": "^1.0.0",
     "nan": "^2.1.0",
     "node-gyp": "^3.2.1",
     "pre-commit": "^1.1.2"
@@ -16,7 +18,7 @@
   "scripts": {
     "test": "make test",
     "lint": "./scripts/cpplint.py",
-    "install": "node-gyp rebuild"
+    "preinstall": "npm install nan && npm install cppunitlite"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@
 .PHONY: sample
 
 build:
-	 node-gyp configure && node-gyp rebuild
+	 ./node_modules/.bin/node-gyp rebuild
 
 build-other:
 	./node_modules/node-gyp/gyp/gyp_main.py --generator-output=./build --depth=. -f ninja other.gyp
