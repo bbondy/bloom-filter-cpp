@@ -11,7 +11,7 @@ build-other:
 	ninja -C build/out/Default -f build.ninja
 
 test: build-other
-	./build/out/Default/test
+	./build/out/Default/test || [ $$? -eq 0 ]
 
 sample: build-other
 	./build/out/Default/sample
