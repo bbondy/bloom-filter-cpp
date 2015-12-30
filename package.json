@@ -1,7 +1,7 @@
 {
   "name": "bloom-filter-cpp",
   "main": "./build/Release/bloom-filter-cpp",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "",
   "directories": {
     "test": "test"
@@ -11,7 +11,6 @@
     "nan": "^2.1.0"
   },
   "devDependencies": {
-    "ninja": "^3.0.7",
     "node-gyp": "^3.2.1",
     "pre-commit": "^1.1.2"
   },
