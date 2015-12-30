@@ -1,8 +1,10 @@
 {
   "targets": [{
     "target_name": "bloom-filter-cpp",
-    "type": "static_library",
     "sources": [
+      "addon.cpp",
+      "BloomFilterWrap.cpp",
+      "BloomFilterWrap.h",
       "BloomFilter.cpp",
       "BloomFilter.h"
     ],

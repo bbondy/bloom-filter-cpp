@@ -1,6 +1,6 @@
 {
   "name": "bloom-filter-cpp",
-  "main": "include.js",
+  "main": "./build/Release/bloom-filter-cpp",
   "version": "0.2.3",
   "description": "",
   "directories": {

@@ -24,7 +24,7 @@ class BloomFilter {
     BloomFilter(const char *buffer, int byteBufferSize,
         HashFn hashFns[] = defaultHashFns,
         int numHashFns = sizeof(defaultHashFns)/sizeof(defaultHashFns[0]));
-    ~BloomFilter();
+    virtual ~BloomFilter();
     // Sets the specified bit in the buffer
     void setBit(unsigned int bitLocation);
     // Checks if the specified bit is set in the buffer
