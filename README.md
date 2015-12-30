@@ -1,7 +1,10 @@
 [![Build Status](https://travis-ci.org/bbondy/bloom-filter-cpp.svg?branch=master)](https://travis-ci.org/bbondy/bloom-filter-cpp)
 
 # BloomFilter.cpp
-Bloom filter written in C++. Tests whether an element belongs to a set. False positive matches are possible, false negatives are not. Also implements Rabin–Karp algorithm with Rabin fingerprint hashes for multiple substring searches.
+C++ Native node module Bloom filter written in C++ for use in node or any other C++ project.
+
+The Bloom filter tests whether an element belongs to a set. False positive matches are possible but not common, false negatives are not possible.
+The Bloom filter library also implements Rabin–Karp algorithm with Rabin fingerprint hashes for multiple substring searches.
 
 This is a port of a [similar lib](https://github.com/bbondy/bloom-filter-js) I prototyped in JS.
 
@@ -11,7 +14,27 @@ This is a port of a [similar lib](https://github.com/bbondy/bloom-filter-js) I p
 npm install --save bloom-filter-cpp
 ```
 
-## Usage
+
+## JS Usage
+
+```javascript
+var BloomFilter = require('bloom-filter-cpp').BloomFilter
+
+var b1 = new BloomFilter()
+
+console.log('b1 ading hello')
+b1.add('hello')
+
+console.log('b1 exists hello? ', b1.exists('hello'))
+console.log('b1 exists hello2? ', b1.exists('hello2'))
+
+var b2 = new BloomFilter()
+console.log('b2 exists hello? ', b2.exists('hello'))
+console.log('b2 exists hello2? ', b2.exists('hello2'))
+```
+
+
+## C++ Usage
 
 ```c++
 #include "BloomFilter.h"
@@ -60,12 +83,6 @@ npm install
 
 ```
 make
-```
-
-## Build everything in debug
-
-```
-make build-debug
 ```
 
 ## Running sample
