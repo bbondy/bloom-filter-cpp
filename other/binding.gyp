@@ -3,12 +3,12 @@
     "target_name": "sample",
     "type": "executable",
     "sources": [
-      "main.cpp",
-      "BloomFilter.cpp",
-      "BloomFilter.h"
+      "../main.cpp",
+      "../BloomFilter.cpp",
+      "../BloomFilter.h"
     ],
     "include_dirs": [
-      ".",
+      "..",
     ],
     "conditions": [
       ['OS=="win"', {
@@ -28,18 +28,18 @@
     "target_name": "test",
     "type": "executable",
     "sources": [
-      "./test/test-main.cpp",
-      "./test/test-bloom.cpp",
-      "./test/util.cpp",
-      "BloomFilter.cpp",
+      "../test/test-main.cpp",
+      "../test/test-bloom.cpp",
+      "../test/util.cpp",
+      "../BloomFilter.cpp",
     ],
     "include_dirs": [
-      ".",
-      './node_modules/cppunitlite',
-      './node_modules/nan',
+      "..",
+      '../node_modules/cppunitlite',
+      '../node_modules/nan',
     ],
     "dependencies": [
-      "node_modules/cppunitlite/binding.gyp:CppUnitLite",
+      "../node_modules/cppunitlite/binding.gyp:CppUnitLite",
     ],
     "conditions": [
       ['OS=="win"', {
