@@ -11,7 +11,14 @@
 #include "./hashFn.h"
 #include "./base.h"
 
-extern HashFn defaultHashFns[5];
+static HashFn h1(13);
+static HashFn h2(17);
+static HashFn h3(31);
+static HashFn h4(41);
+static HashFn h5(53);
+static HashFn defaultHashFns[5] = {h1, h2, h3, h4, h5};
+
+
 /**
  * Implements a Bloom Filter using Rabin Karp for char* buffer lookups
  */

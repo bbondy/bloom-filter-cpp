@@ -47,11 +47,16 @@ TEST(BloomFilter, SimpleHashFn) {
   CHECK(hash == (static_cast<int>('h')) * pow(2, 1) +
       static_cast<int>('i') * pow(2, 0));
 
-  // Make sure HashFn produces the correct hash
-  // fdsafdsa
-  HashFn h2(19);
-  const char *sz = "facebook.com";
-  LONGS_EQUAL(h2(sz, strlen(sz)), 12510474367240317);
+  {
+    HashFn h(19, false);
+    HashFn h2(19, true);
+    const char *sz = "facebook.com";
+    const char *sz2 = "abcde";
+    LONGS_EQUAL(h(sz, strlen(sz)), 12510474367240317);
+    LONGS_EQUAL(h2(sz, strlen(sz)), 12510474367240317);
+    LONGS_EQUAL(h(sz2, strlen(sz2)), 13351059);
+    LONGS_EQUAL(h2(sz2, strlen(sz2)), 13351059);
+  }
 }
 
 // Detects when elements are in the set and not in the set
@@ -80,24 +85,6 @@ void genRandomBuffer(char *s, const int len) {
   s[len - 1] = 0;
 }
 
-class BasicHashFn : public HashFn {
- public:
-  explicit BasicHashFn(int base) : HashFn(0) {
-    this->base = base;
-  }
-
-  virtual uint64_t operator()(const char *input, int len) {
-    uint64_t total = base;
-    for (int i = 0; i < len; i++) {
-      total += input[i];
-    }
-    return total;
-  }
- private:
-  int base;
-};
-
-
 // Can handle long strings
 TEST(BloomFilter, BasicLongStrings) {
   const int kBufSize = 20000;
@@ -108,7 +95,10 @@ TEST(BloomFilter, BasicLongStrings) {
   genRandomBuffer(id2, kBufSize);
   genRandomBuffer(id3, kBufSize);
 
-  BasicHashFn hashFns[2] = {BasicHashFn(0), BasicHashFn(1023)};
+  HashFn h1 = HashFn(0);
+  HashFn h2 = HashFn(1023);
+  HashFn hashFns[2] = {h1, h2};
+
   BloomFilter b(10, 5000, hashFns, sizeof(hashFns)/sizeof(hashFns[0]));
 
   b.add(id1, kBufSize);
