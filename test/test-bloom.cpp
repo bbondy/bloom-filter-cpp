@@ -42,11 +42,16 @@ TEST(BloomFilter, isBitSetSetBit) {
 
 // Generates a simple hash function for the specified prime
 TEST(BloomFilter, SimpleHashFn) {
-  HashFn H(2);
-  uint64_t hash = H("hi", 2);
-
+  HashFn h(2);
+  uint64_t hash = h("hi", 2);
   CHECK(hash == (static_cast<int>('h')) * pow(2, 1) +
       static_cast<int>('i') * pow(2, 0));
+
+  // Make sure HashFn produces the correct hash
+  // fdsafdsa
+  HashFn h2(19);
+  const char *sz = "facebook.com";
+  LONGS_EQUAL(h2(sz, strlen(sz)), 12510474367240317);
 }
 
 // Detects when elements are in the set and not in the set

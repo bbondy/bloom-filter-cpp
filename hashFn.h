@@ -6,6 +6,8 @@
 #ifndef HASHFN_H_
 #define HASHFN_H_
 
+#include "./base.h"
+
 // Functor for a hashing function
 // Implements a Rabin fingerprint hash function
 class HashFn {
