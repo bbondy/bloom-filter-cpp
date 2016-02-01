@@ -39,6 +39,8 @@ class BloomFilter {
     // Adds the specified buffer to the bloom filter
     void add(const char *input, int len);
     void add(const char *sz);
+    // Empty the Bloom Filter
+    void clear();
 
     /**
      * Checks whether an element probably exists in the set, or definitely

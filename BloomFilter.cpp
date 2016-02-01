@@ -103,3 +103,7 @@ bool BloomFilter::substringExists(const char *data, int dataLen,
 bool BloomFilter::substringExists(const char *data, int substringLength) {
   return substringExists(data, static_cast<int>(strlen(data)), substringLength);
 }
+
+void BloomFilter::clear() {
+  memset(buffer, 0, byteBufferSize);
+}

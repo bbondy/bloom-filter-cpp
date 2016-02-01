@@ -183,3 +183,12 @@ TEST(BloomFilter, transferingBuffer) {
   CHECK(!b2.exists("BrianRonaldBondy"));
   CHECK(!b2.exists("RonaldBondy"));
 }
+
+// Works by transfering a buffer
+TEST(BloomFilter, clearBloomFilter) {
+  BloomFilter b;
+  b.add("Brian");
+  CHECK(b.exists("Brian"));
+  b.clear();
+  CHECK(!b.exists("Brian"));
+}
