@@ -5,7 +5,9 @@
     "sources": [
       "../main.cpp",
       "../BloomFilter.cpp",
-      "../BloomFilter.h"
+      "../BloomFilter.h",
+      "../hashFn.cpp",
+      "../hashFn.h"
     ],
     "include_dirs": [
       "..",

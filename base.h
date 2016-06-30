@@ -10,4 +10,6 @@
 #define nullptr 0
 #endif
 
+#include <stdint.h>
+
 #endif  // BASE_H_

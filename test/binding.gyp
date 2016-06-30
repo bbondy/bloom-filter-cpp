@@ -7,6 +7,7 @@
       "../test/test-bloom.cpp",
       "../test/util.cpp",
       "../BloomFilter.cpp",
+      "../hashFn.cpp",
     ],
     "include_dirs": [
       "..",
