@@ -1,7 +1,7 @@
 {
   "name": "bloom-filter-cpp",
   "main": "./build/Release/bloom-filter-cpp",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "",
   "directories": {
     "test": "test"

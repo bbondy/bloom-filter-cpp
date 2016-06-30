@@ -8,7 +8,6 @@
       "BloomFilter.cpp",
       "BloomFilter.h",
       "hashFn.cpp",
-      "hashFn.h"
     ],
     "include_dirs": [
       ".",
