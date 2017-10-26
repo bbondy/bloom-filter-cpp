@@ -1,0 +1,14 @@
+config("external_config") {
+  include_dirs = [ "." ]
+}
+
+source_set("bloom-filter-cpp") {
+  public_configs = [ ":external_config" ]
+
+  sources = [
+    "BloomFilter.cpp",
+    "BloomFilter.h",
+    "hashFn.cpp",
+    "hashFn.h",
+  ]
+}
