@@ -1,16 +1,14 @@
-static_library("bloom_filter_cpp") {
-  configs += [
-    "//electron/build:electron_config",
-  ]
+config("external_config") {
+  include_dirs = [ ".." ]
+}
 
-  include_dirs = [
-    "//electron/vendor/bloom-filter-cpp",
-  ]
+source_set("bloom_filter_cpp") {
+  public_configs = [ ":external_config" ]
 
   sources = [
-    "//electron/vendor/bloom-filter-cpp/BloomFilter.cpp",
-    "//electron/vendor/bloom-filter-cpp/BloomFilter.h",
-    "//electron/vendor/bloom-filter-cpp/hashFn.cpp",
-    "//electron/vendor/bloom-filter-cpp/hashFn.h",
+    "../BloomFilter.cpp",
+    "../BloomFilter.h",
+    "../hashFn.cpp",
+    "../hashFn.h",
   ]
 }
