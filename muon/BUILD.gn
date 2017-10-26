@@ -1,4 +1,4 @@
-source_set("bloom_filter_cpp") {
+static_library("bloom_filter_cpp") {
   configs += [
     "//electron/build:electron_config",
   ]
