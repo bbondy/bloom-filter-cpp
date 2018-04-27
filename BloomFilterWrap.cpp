@@ -7,6 +7,7 @@
 
 namespace BloomFilterWrap {
 
+using v8::Context;
 using v8::Function;
 using v8::FunctionCallbackInfo;
 using v8::FunctionTemplate;
@@ -58,8 +59,11 @@ void BloomFilterWrap::New(const FunctionCallbackInfo<Value>& args) {
     // Invoked as plain function `BloomFilter(...)`, turn into construct call.
     const int argc = 1;
     Local<Value> argv[argc] = { args[0] };
+    Local<Context> context = isolate->GetCurrentContext();
     Local<Function> cons = Local<Function>::New(isolate, constructor);
-    args.GetReturnValue().Set(cons->NewInstance(argc, argv));
+    Local<Object> result =
+        cons->NewInstance(context, argc, argv).ToLocalChecked();
+    args.GetReturnValue().Set(result);
   }
 }
 
