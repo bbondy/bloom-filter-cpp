@@ -68,7 +68,8 @@ void BloomFilterWrap::New(const FunctionCallbackInfo<Value>& args) {
 }
 
 void BloomFilterWrap::Add(const FunctionCallbackInfo<Value>& args) {
-  String::Utf8Value str(args[0]->ToString());
+  Isolate* isolate = args.GetIsolate();
+  String::Utf8Value str(isolate, args[0]->ToString());
   const char * buffer = *str;
 
   BloomFilterWrap* obj = ObjectWrap::Unwrap<BloomFilterWrap>(args.Holder());
@@ -77,7 +78,7 @@ void BloomFilterWrap::Add(const FunctionCallbackInfo<Value>& args) {
 
 void BloomFilterWrap::Exists(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
-  String::Utf8Value str(args[0]->ToString());
+  String::Utf8Value str(isolate, args[0]->ToString());
   const char * buffer = *str;
 
   BloomFilterWrap* obj = ObjectWrap::Unwrap<BloomFilterWrap>(args.Holder());
