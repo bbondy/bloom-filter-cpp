@@ -9,9 +9,9 @@
   "dependencies": {},
   "devDependencies": {
     "cppunitlite": "^1.0.0",
-    "nan": "^2.2.1",
-    "node-gyp": "^3.4.0",
-    "pre-commit": "^1.1.2"
+    "nan": "^2.13.2",
+    "node-gyp": "^4.0.0",
+    "pre-commit": "^1.2.2"
   },
   "scripts": {
     "build": "make",
