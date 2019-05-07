@@ -42,9 +42,10 @@ void BloomFilterWrap::Init(Local<Object> exports) {
   NODE_SET_PROTOTYPE_METHOD(tpl, "add", BloomFilterWrap::Add);
   NODE_SET_PROTOTYPE_METHOD(tpl, "exists", BloomFilterWrap::Exists);
 
-  constructor.Reset(isolate, tpl->GetFunction());
+  constructor.Reset(isolate, tpl->GetFunction(
+    isolate->GetCurrentContext()).ToLocalChecked());
   exports->Set(String::NewFromUtf8(isolate, "BloomFilter"),
-               tpl->GetFunction());
+    tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked());
 }
 
 void BloomFilterWrap::New(const FunctionCallbackInfo<Value>& args) {
@@ -69,7 +70,8 @@ void BloomFilterWrap::New(const FunctionCallbackInfo<Value>& args) {
 
 void BloomFilterWrap::Add(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
-  String::Utf8Value str(isolate, args[0]->ToString());
+  String::Utf8Value str(isolate, args[0]->ToString(isolate->GetCurrentContext())
+      .FromMaybe(v8::Local<v8::String>()));
   const char * buffer = *str;
 
   BloomFilterWrap* obj = ObjectWrap::Unwrap<BloomFilterWrap>(args.Holder());
@@ -78,7 +80,8 @@ void BloomFilterWrap::Add(const FunctionCallbackInfo<Value>& args) {
 
 void BloomFilterWrap::Exists(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
-  String::Utf8Value str(isolate, args[0]->ToString());
+  String::Utf8Value str(isolate, args[0]->ToString(isolate->GetCurrentContext())
+      .FromMaybe(v8::Local<v8::String>()));
   const char * buffer = *str;
 
   BloomFilterWrap* obj = ObjectWrap::Unwrap<BloomFilterWrap>(args.Holder());
