@@ -74,7 +74,7 @@ int main(int argc, char**argv) {
 
 ## Developing bloom-filter-cpp
 
-````
+```
 git clone bloom-filter-cpp
 npm install
 ```
