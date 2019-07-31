@@ -19,6 +19,13 @@ using v8::Persistent;
 using v8::String;
 using v8::Boolean;
 using v8::Value;
+using v8::NewStringType;
+
+#if V8_MAJOR_VERSION >= 7
+#define CHECK_SET(X) X.Check()
+#else
+#define CHECK_SET(X) (void)X
+#endif
 
 Persistent<Function> BloomFilterWrap::constructor;
 
@@ -44,8 +51,10 @@ void BloomFilterWrap::Init(Local<Object> exports) {
 
   constructor.Reset(isolate, tpl->GetFunction(
     isolate->GetCurrentContext()).ToLocalChecked());
-  exports->Set(String::NewFromUtf8(isolate, "BloomFilter"),
-    tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked());
+  CHECK_SET(exports->Set(isolate->GetCurrentContext(), String::NewFromUtf8(isolate, "BloomFilter", NewStringType::kNormal).ToLocalChecked(),
+  tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked()));
+  // exports->Set(String::NewFromUtf8(isolate, "BloomFilter"),
+  //   tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked());
 }
 
 void BloomFilterWrap::New(const FunctionCallbackInfo<Value>& args) {
