@@ -42,7 +42,8 @@ void BloomFilterWrap::Init(Local<Object> exports) {
 
   // Prepare constructor template
   Local<FunctionTemplate> tpl = FunctionTemplate::New(isolate, New);
-  tpl->SetClassName(String::NewFromUtf8(isolate, "BloomFilter"));
+  //tpl->SetClassName(String::NewFromUtf8(isolate, "BloomFilter"));
+  tpl->SetClassName(String::NewFromUtf8(isolate, "BloomFilter", NewStringType::kNormal).ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
