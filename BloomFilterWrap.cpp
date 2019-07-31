@@ -42,7 +42,6 @@ void BloomFilterWrap::Init(Local<Object> exports) {
 
   // Prepare constructor template
   Local<FunctionTemplate> tpl = FunctionTemplate::New(isolate, New);
-  //tpl->SetClassName(String::NewFromUtf8(isolate, "BloomFilter"));
   tpl->SetClassName(String::NewFromUtf8(isolate, "BloomFilter", NewStringType::kNormal).ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
@@ -54,8 +53,6 @@ void BloomFilterWrap::Init(Local<Object> exports) {
     isolate->GetCurrentContext()).ToLocalChecked());
   CHECK_SET(exports->Set(isolate->GetCurrentContext(), String::NewFromUtf8(isolate, "BloomFilter", NewStringType::kNormal).ToLocalChecked(),
   tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked()));
-  // exports->Set(String::NewFromUtf8(isolate, "BloomFilter"),
-  //   tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked());
 }
 
 void BloomFilterWrap::New(const FunctionCallbackInfo<Value>& args) {
